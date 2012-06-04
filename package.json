@@ -1,6 +1,6 @@
 {
     "name":         "puzz.li",
-    "version":      "0.01",
+    "version":      "0.0.1",
     "description":  "A puzzle website",
     "homepage":     "http://puzz.li",
     "repository":   {
