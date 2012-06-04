@@ -1,5 +1,5 @@
 var express = require('express');
-var assets= require('connect-assets');
+var assets = require('connect-assets');
 
 var app = module.exports = express.createServer();
 
