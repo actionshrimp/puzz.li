@@ -20,11 +20,9 @@ class PuzzleGrid
     @rules = rules
 
   gridIsValid: () ->
-    isValid = true
-
     if @rules?
-      isValid = @rules(@)
-
-    return isValid
+      return @rules(@)
+    else
+      return true
 
 module.exports = PuzzleGrid
