@@ -2,23 +2,30 @@ class PuzzleGrid
   constructor: (@rows, @cols, @rules) ->
     @data = {}
 
-  cell: (row, col, value) ->
-    key = '#{row}:#{col}'
+  key: (row, col) -> '#{row}:#{col}'
 
-    if value?
-      @validateAgainstRules(row, col, value)
-      @data[key] = value
-    else
-      return @data[key]
+  getCell: (row, col) ->
+    return @data[@key(row,col)]
+    
+  setCell: (row, col, value) ->
+    key = @key(row, col)
+    prev = @getCell(row, col)
+
+    @data[key] = value
+    if (!@gridIsValid())
+      @data[key] = prev
+      throw 'InvalidGridException'
 
   setRules: (rules) ->
     @rules = rules
 
-  validateAgainstRules: (row, col, value) ->
+  gridIsValid: () ->
+    isValid = true
+
     if @rules?
-      if @rules(row, col, value)
-        return true
-      else
-        throw 'InvalidEntryException'
+      if !@rules(@)
+        isValid = false
+
+    return isValid
 
 module.exports = PuzzleGrid
