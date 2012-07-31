@@ -23,8 +23,7 @@ class PuzzleGrid
     isValid = true
 
     if @rules?
-      if !@rules(@)
-        isValid = false
+      isValid = @rules(@)
 
     return isValid
 
