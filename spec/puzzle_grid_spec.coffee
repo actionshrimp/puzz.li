@@ -11,12 +11,16 @@ describe 'puzzle grid', ->
   beforeEach ->
     @grid = new PuzzleGrid 10, 10
 
-  it 'should let you set values for cells', ->
-    @grid.setCell(0, 0, 'A value')
-    expect(@grid.getCell(0, 0)).toEqual('A value')
+  it 'should let you set values for cells within range', ->
+    @grid.setCell(0, 0, 'Legal')
+    expect(@grid.getCell(0, 0)).toEqual('Legal')
 
-    @grid.setCell(1, 1, 'Another value')
-    expect(@grid.getCell(1, 1)).toEqual('Another value')
+    @grid.setCell(1, 1, 'Also legal')
+    expect(@grid.getCell(1, 1)).toEqual('Also legal')
+
+  it 'should thrown an InvalidCellException if the cell is out of range', ->
+    expect(=> @grid.setCell(10, 0, 'Out of range')).toThrow('InvalidCellException')
+    expect(=> @grid.setCell(0, 10, 'Out of range')).toThrow('InvalidCellException')
 
   describe 'when rules are in place', ->
 
