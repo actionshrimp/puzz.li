@@ -5,7 +5,7 @@ class PuzzleGrid
   setRules: (rules) ->
     @rules = rules
 
-  key: (row, col) -> '#{row}:#{col}'
+  key: (row, col) -> "#{row}:#{col}"
 
   getCell: (row, col) ->
     return @data[@key(row, col)]
