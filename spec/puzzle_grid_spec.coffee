@@ -13,9 +13,9 @@ describe 'puzzle grid', ->
 
   it 'should let you set values for cells within range', ->
     @grid.setCell(0, 0, 'Legal')
-    expect(@grid.getCell(0, 0)).toEqual('Legal')
-
     @grid.setCell(1, 1, 'Also legal')
+
+    expect(@grid.getCell(0, 0)).toEqual('Legal')
     expect(@grid.getCell(1, 1)).toEqual('Also legal')
 
   it 'should thrown an InvalidCellException if the cell is out of range', ->
