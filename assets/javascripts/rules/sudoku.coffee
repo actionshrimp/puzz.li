@@ -1,5 +1,5 @@
 rules = (grid) ->
-  return colsAreValid(grid)
+  return (colsAreValid(grid) and rowsAreValid(grid))
 
 colsAreValid = (grid) ->
   for col in [0...grid.cols]
@@ -10,7 +10,22 @@ colsAreValid = (grid) ->
       value = grid.getCell(row, col)
 
       if value in found
-        console.log("row: #{row}, col: #{col}, value: #{value}")
+        return false
+      else
+        if value?
+          found.push(value)
+
+  return true
+
+rowsAreValid = (grid) ->
+  for row in [0...grid.rows]
+
+    found = []
+
+    for col in [0...grid.cols]
+      value = grid.getCell(row, col)
+
+      if value in found
         return false
       else
         if value?
