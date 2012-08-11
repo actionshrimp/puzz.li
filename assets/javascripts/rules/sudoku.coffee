@@ -1,29 +1,18 @@
 rules = (grid) ->
   return (colsAreValid(grid) and rowsAreValid(grid))
 
-colsAreValid = (grid) ->
-  for col in [0...grid.cols]
-
-    found = []
-
-    for row in [0...grid.rows]
-      value = grid.getCell(row, col)
-
-      if value in found
-        return false
-      else
-        if value?
-          found.push(value)
-
-  return true
-
 rowsAreValid = (grid) ->
-  for row in [0...grid.rows]
+  return lineIsValid(grid.rows, grid.cols, grid.getCell)
 
+colsAreValid = (grid) ->
+  return lineIsValid(grid.cols, grid.rows, grid.getCellT)
+
+lineIsValid = (outerScan, innerScan, valueGetter) ->
+  for u in [0...outerScan]
     found = []
 
-    for col in [0...grid.cols]
-      value = grid.getCell(row, col)
+    for v in [0...innerScan]
+      value = valueGetter(u, v)
 
       if value in found
         return false
