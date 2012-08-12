@@ -4,10 +4,10 @@ class PuzzleGrid
     if rules?
       @setRules(rules)
 
-  #Set the rules with a rules builder function 
-  #(which returns rules after initial validation)
-  setRules: (rulesBuilder) ->
-    @rules = rulesBuilder(@)
+  #Instantiate the rules with a rules constructor
+  #(which returns a rules object after initial validation)
+  setRules: (rules) ->
+    @rules = new rules(@)
 
   key: (col, row) -> "#{col}:#{row}"
 
@@ -37,7 +37,7 @@ class PuzzleGrid
 
   gridIsValid: () ->
     if @rules?
-      return @rules(@)
+      return @rules.validateGridValues()
     else
       return true
 

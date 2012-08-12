@@ -1,8 +1,10 @@
 PuzzleGrid = require('../assets/javascripts/puzzle_grid')
 
-exampleRules = exampleRulesBuilder = (grid) ->
-  return (grid) ->
-    if grid.getCell(0, 0) == 'Legal'
+class ExampleRules
+  constructor: (@grid) ->
+
+  validateGridValues: () ->
+    if @grid.getCell(0, 0) == 'Legal'
       return true
     else
       return false
@@ -26,7 +28,7 @@ describe 'puzzle grid', ->
   describe 'when rules are in place', ->
 
     beforeEach ->
-      @grid.setRules(exampleRules)
+      @grid.setRules(ExampleRules)
 
     it 'should take the value if the rules allow it', ->
       @grid.setCell(0, 0, 'Legal')

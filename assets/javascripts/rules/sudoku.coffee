@@ -1,78 +1,78 @@
-rules = (grid) ->
-  return (
-    colsAreValid(grid) and
-    rowsAreValid(grid) and
-    allSubSquaresAreValid(grid))
+class SudokuRules
+  constructor: (@grid) ->
+    if !(@isSquare() and @hasSubSquares())
+      throw 'InvalidGridException'
 
-#Check no number occurs twice in a row
-rowsAreValid = (grid) ->
-  return lineIsValid(grid.rows, grid.cols, grid.getCell)
+  isSquare: () ->
+    return (@grid.rows == @grid.cols)
 
-#Check no number occurs twice in a column
-colsAreValid = (grid) ->
-  return lineIsValid(grid.cols, grid.rows, grid.getCellT)
+  hasSubSquares: () ->
+    return (Math.round(Math.sqrt(@grid.rows)) == Math.sqrt(@grid.rows))
+  validateGridSize: () ->
 
-#Check a particular straight line in the grid is valid
-lineIsValid = (outerScan, innerScan, valueGetter) ->
-  for u in [0...outerScan]
+
+  validateGridValues: () ->
+    return (
+      @colsAreValid() and
+      @rowsAreValid() and
+      @allSubSquaresAreValid()
+    )
+
+  #Check no number occurs twice in a column
+  colsAreValid: () ->
+    return @lineIsValid(@grid.cols, @grid.rows, @grid.getCellT)
+
+  #Check no number occurs twice in a row
+  rowsAreValid: () ->
+    return @lineIsValid(@grid.rows, @grid.cols, @grid.getCell)
+
+  #Check a particular straight line in the grid is valid
+  lineIsValid: (outerScan, innerScan, valueGetter) ->
+    for u in [0...outerScan]
+      found = []
+
+      for v in [0...innerScan]
+        value = valueGetter(u, v)
+
+        if value in found
+          return false
+        else
+          if value?
+            found.push(value)
+
+    return true
+
+  #Check no number occurs twice in all subsquares,
+  #by checking all subsquares individually
+  allSubSquaresAreValid: () ->
+    subSquareSize = Math.sqrt(@grid.rows)
+
+    for x in [0...subSquareSize]
+      startRow = x*subSquareSize
+
+      for y in [0...subSquareSize]
+        startCol = y*subSquareSize
+
+        if !@subSquareIsValid(startRow, startCol, subSquareSize)
+          return false
+
+    return true
+
+  #Check no number occurs twice in a particular subsquare
+  subSquareIsValid: (startRow, startCol, squareSize) ->
     found = []
 
-    for v in [0...innerScan]
-      value = valueGetter(u, v)
+    for row in [startRow...(startRow+squareSize)]
+      for col in [startCol...(startCol+squareSize)]
 
-      if value in found
-        return false
-      else
-        if value?
-          found.push(value)
+        value = @grid.getCell(row, col)
 
-  return true
+        if value in found
+          return false
+        else
+          if value?
+            found.push(value)
 
-#Check no number occurs twice in all subsquares,
-#by checking all subsquares individually
-allSubSquaresAreValid = (grid) ->
-  subSquareSize = Math.sqrt(grid.rows)
+    return true
 
-  for x in [0...subSquareSize]
-    startRow = x*subSquareSize
-
-    for y in [0...subSquareSize]
-      startCol = y*subSquareSize
-
-      if !subSquareIsValid(grid, startRow, startCol, subSquareSize)
-        return false
-
-  return true
-
-#Check no number occurs twice in a particular subsquare
-subSquareIsValid = (grid, startRow, startCol, squareSize) ->
-  found = []
-
-  for row in [startRow...(startRow+squareSize)]
-    for col in [startCol...(startCol+squareSize)]
-
-      value = grid.getCell(row, col)
-
-      if value in found
-        return false
-      else
-        if value?
-          found.push(value)
-
-  return true
-
-#Return sudoku rules if the grid is a valid size for sudoku
-rulesBuilder = (grid) ->
-
-  if !(isSquare(grid) and hasSubSquares(grid))
-    throw 'InvalidGridException'
-
-  return rules
-
-isSquare = (grid) ->
-  return (grid.rows == grid.cols)
-
-hasSubSquares = (grid) ->
-  return (Math.round(Math.sqrt(grid.rows)) == Math.sqrt(grid.rows))
-
-module.exports = rulesBuilder
+module.exports = SudokuRules
