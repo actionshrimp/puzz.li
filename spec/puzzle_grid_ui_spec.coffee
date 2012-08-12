@@ -8,4 +8,8 @@ describe 'puzzle grid UI', ->
     @ui = new PuzzleGridUI(@grid)
 
   it 'should default the current square to the top left corner', ->
-    expect(@ui.current()).toEqual([0, 0])
+    expect(@ui.getCurrent()).toEqual([0, 0])
+
+  it 'should allow the current square to be set', ->
+    @ui.setCurrent(3, 3)
+    expect(@ui.getCurrent()).toEqual([3, 3])
