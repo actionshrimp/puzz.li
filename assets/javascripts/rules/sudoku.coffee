@@ -55,4 +55,13 @@ subSquareIsValid = (grid, startRow, startCol, squareSize) ->
 
   return true
 
-module.exports = rules
+rulesBuilder = (grid) ->
+  if (
+    (grid.rows == grid.cols) and
+    (Math.round(Math.sqrt(grid.rows)) == Math.sqrt(grid.rows))
+  )
+    return rules
+  else
+    throw 'InvalidGridException'
+
+module.exports = rulesBuilder

@@ -1,11 +1,23 @@
 PuzzleGrid = require('../../assets/javascripts/puzzle_grid')
 SudokuRules = require('../../assets/javascripts/rules/sudoku')
-size = 9
+
+describe 'sudoku rules builder', ->
+  it 'should only accept equal sided grids', ->
+    grid = new PuzzleGrid(9, 4)
+    expect(=> grid.setRules(SudokuRules)).toThrow('InvalidGridException')
+
+  it 'should only accept grids where the sides are a square number', ->
+    for size in [1...30]
+      grid = new PuzzleGrid(size, size)
+      if (size != 1 and size != 4 and size != 9 and size != 16 and size != 25)
+        expect(=> grid.setRules(SudokuRules)).toThrow('InvalidGridException')
+      else
+        grid.setRules(SudokuRules)
 
 describe 'sudoku rules', ->
 
   beforeEach ->
-    @grid = new PuzzleGrid(size, size)
+    @grid = new PuzzleGrid(9, 9)
     @grid.setRules(SudokuRules)
 
   it 'should only allow one of each number in each column', ->

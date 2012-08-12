@@ -1,9 +1,11 @@
 class PuzzleGrid
-  constructor: (@rows, @cols, @rules) ->
+  constructor: (@rows, @cols, rules) ->
     @data = {}
+    if rules?
+      @setRules(rules)
 
-  setRules: (rules) ->
-    @rules = rules
+  setRules: (rulesBuilder) ->
+    @rules = rulesBuilder(@)
 
   key: (row, col) -> "#{row}:#{col}"
 

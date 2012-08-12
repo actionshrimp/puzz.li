@@ -1,10 +1,11 @@
 PuzzleGrid = require('../assets/javascripts/puzzle_grid')
 
-exampleRules = (grid) ->
-  if grid.getCell(0, 0) == 'Legal'
-    return true
-  else
-    return false
+exampleRules = exampleRulesBuilder = (grid) ->
+  return (grid) ->
+    if grid.getCell(0, 0) == 'Legal'
+      return true
+    else
+      return false
 
 describe 'puzzle grid', ->
 
