@@ -35,3 +35,6 @@ describe 'puzzle grid', ->
 
     it 'should throw an InvalidGridException if the rules do not allow it', ->
       expect(=> @grid.setCell(0, 0, 'Illegal')).toThrow('InvalidGridException')
+
+    it 'should allow invalid rule values if skipRulesValidation is set to true', ->
+      expect(=> @grid.setCell(0, 0, 'Illegal', true)).not.toThrow()
