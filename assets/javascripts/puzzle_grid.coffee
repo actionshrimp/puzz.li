@@ -18,22 +18,22 @@ class PuzzleGrid
   getCellT: (row, col) =>
     return @data[@key(col, row)]
     
-  setCell: (col, row, value, skipRulesValidation) ->
+  setCell: (col, row, value, performRulesValidation) ->
 
     if !@cellExists(col, row)
       throw 'InvalidCellException'
 
-    if not skipRulesValidation?
-      skipRulesValidation = false
+    if not performRulesValidation?
+      performRulesValidation = true
 
     key = @key(row, col)
     prev = @getCell(row, col)
 
     @data[key] = value
-    if (!skipRulesValidation)
-      if (!@gridIsValid())
-        @data[key] = prev
-        throw 'InvalidGridException'
+
+    if (performRulesValidation and !@gridIsValid())
+      @data[key] = prev
+      throw 'InvalidGridException'
 
   cellExists: (col, row) ->
     if (col >= 0 and col < @cols) and (row >= 0 and row < @rows)
