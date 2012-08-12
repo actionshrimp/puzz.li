@@ -11,5 +11,8 @@ describe 'puzzle grid UI', ->
     expect(@ui.getCurrent()).toEqual([0, 0])
 
   it 'should allow the current square to be set', ->
-    @ui.setCurrent(3, 3)
-    expect(@ui.getCurrent()).toEqual([3, 3])
+    @ui.setCurrent(2, 2)
+    expect(@ui.getCurrent()).toEqual([2, 2])
+
+  it 'should not allow the current square to be outside the underlying grid', ->
+    expect(=> @ui.setCurrent(3, 3)).toThrow('InvalidCurrentSquareException')
