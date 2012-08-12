@@ -1,15 +1,14 @@
-class SudokuRules
-  constructor: (@grid) ->
-    if !(@isSquare() and @hasSubSquares())
-      throw 'InvalidGridException'
+BaseRules = require('./base')
 
+class SudokuRules extends BaseRules
   isSquare: () ->
     return (@grid.rows == @grid.cols)
 
   hasSubSquares: () ->
     return (Math.round(Math.sqrt(@grid.rows)) == Math.sqrt(@grid.rows))
-  validateGridSize: () ->
-
+  validateInitial: () ->
+    if !(@isSquare() and @hasSubSquares())
+      throw 'InvalidGridException'
 
   validateGridValues: () ->
     return (

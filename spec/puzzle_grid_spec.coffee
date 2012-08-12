@@ -1,8 +1,7 @@
+BaseRules = require('../assets/javascripts/rules/base')
 PuzzleGrid = require('../assets/javascripts/puzzle_grid')
 
-class ExampleRules
-  constructor: (@grid) ->
-
+class ExampleRules extends BaseRules
   validateGridValues: () ->
     if @grid.getCell(0, 0) == 'Legal'
       return true
