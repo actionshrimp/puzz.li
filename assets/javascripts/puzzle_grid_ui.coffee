@@ -18,6 +18,5 @@ class PuzzleGridUI
 
   next: ->
     @curRow += 1
-    return [1, 0]
 
 module.exports = PuzzleGridUI

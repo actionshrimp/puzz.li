@@ -22,3 +22,5 @@ describe 'puzzle grid UI', ->
       expect(@ui.getCurrent()).toEqual([0, 0])
       @ui.next()
       expect(@ui.getCurrent()).toEqual([1, 0])
+      @ui.next()
+      expect(@ui.getCurrent()).toEqual([2, 0])
