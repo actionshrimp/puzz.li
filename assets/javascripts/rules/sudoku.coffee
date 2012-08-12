@@ -63,12 +63,16 @@ subSquareIsValid = (grid, startRow, startCol, squareSize) ->
 
 #Return sudoku rules if the grid is a valid size for sudoku
 rulesBuilder = (grid) ->
-  if (
-    (grid.rows == grid.cols) and
-    (Math.round(Math.sqrt(grid.rows)) == Math.sqrt(grid.rows))
-  )
-    return rules
-  else
+
+  if !(isSquare(grid) and hasSubSquares(grid))
     throw 'InvalidGridException'
+
+  return rules
+
+isSquare = (grid) ->
+  return (grid.rows == grid.cols)
+
+hasSubSquares = (grid) ->
+  return (Math.round(Math.sqrt(grid.rows)) == Math.sqrt(grid.rows))
 
 module.exports = rulesBuilder
