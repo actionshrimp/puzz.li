@@ -31,4 +31,9 @@ class PuzzleGridUI
       
     @setCurrent(newRow, newCol)
 
+  right: ->
+    newCol = @curCol + 1
+    if newCol < @grid.cols
+      @setCurrent(@curRow, newCol)
+
 module.exports = PuzzleGridUI

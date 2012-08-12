@@ -34,3 +34,15 @@ describe 'puzzle grid UI', ->
       @ui.setCurrent(2, 2)
       @ui.next()
       expect(@ui.getCurrent()).toEqual([0, 0])
+
+  it 'should go right up to the edge of the grid', ->
+    @ui.right()
+    expect(@ui.getCurrent()).toEqual([0, 1])
+
+    @ui.right()
+    expect(@ui.getCurrent()).toEqual([0, 2])
+
+    @ui.right()
+    expect(@ui.getCurrent()).toEqual([0, 2])
+
+
