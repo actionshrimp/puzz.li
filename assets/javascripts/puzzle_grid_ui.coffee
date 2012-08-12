@@ -17,7 +17,15 @@ class PuzzleGridUI
       throw 'InvalidCurrentSquareException'
 
   next: ->
-    newRow = @curRow + 1
-    @setCurrent(newRow, @curCol)
+    newRow = @curRow
+    newCol = @curCol
+
+    newRow += 1
+
+    if newRow >= @grid.rows
+      newRow = 0
+      newCol += 1
+      
+    @setCurrent(newRow, newCol)
 
 module.exports = PuzzleGridUI
