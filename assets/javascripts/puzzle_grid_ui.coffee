@@ -25,6 +25,9 @@ class PuzzleGridUI
     if newRow >= @grid.rows
       newRow = 0
       newCol += 1
+
+    if newCol >= @grid.cols
+      newCol = 0
       
     @setCurrent(newRow, newCol)
 
