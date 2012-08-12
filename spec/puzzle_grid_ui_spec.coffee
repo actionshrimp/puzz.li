@@ -24,3 +24,8 @@ describe 'puzzle grid UI', ->
       expect(@ui.getCurrent()).toEqual([1, 0])
       @ui.next()
       expect(@ui.getCurrent()).toEqual([2, 0])
+
+    it 'should wrap around to the next row if at the end of a row', ->
+      @ui.setCurrent(2, 0)
+      @ui.next()
+      expect(@ui.getCurrent()).toEqual([0, 1])
