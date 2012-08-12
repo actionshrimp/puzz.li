@@ -1,5 +1,5 @@
 class PuzzleGrid
-  constructor: (@rows, @cols, rules) ->
+  constructor: (@cols, @rows, rules) ->
     @data = {}
     if rules?
       @setRules(rules)
@@ -9,17 +9,17 @@ class PuzzleGrid
   setRules: (rulesBuilder) ->
     @rules = rulesBuilder(@)
 
-  key: (row, col) -> "#{row}:#{col}"
+  key: (col, row) -> "#{col}:#{row}"
 
-  getCell: (row, col) =>
-    return @data[@key(row, col)]
+  getCell: (col, row) =>
+    return @data[@key(col, row)]
 
   #Get cell value using transposed coordinates
-  getCellT: (col, row) =>
-    return @data[@key(row, col)]
+  getCellT: (row, col) =>
+    return @data[@key(col, row)]
     
-  setCell: (row, col, value) ->
-    if !@cellExists(row, col)
+  setCell: (col, row, value) ->
+    if !@cellExists(col, row)
       throw 'InvalidCellException'
 
     key = @key(row, col)
@@ -30,8 +30,8 @@ class PuzzleGrid
       @data[key] = prev
       throw 'InvalidGridException'
 
-  cellExists: (row, col) ->
-    if (row >= 0 and row < @rows) and (col >= 0 and col < @cols)
+  cellExists: (col, row) ->
+    if (col >= 0 and col < @cols) and (row >= 0 and row < @rows)
       return true
     return false
 

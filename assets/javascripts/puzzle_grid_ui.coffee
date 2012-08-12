@@ -4,36 +4,36 @@ class PuzzleGridUI
     @curCol = 0
 
   getCurrent: ->
-    return [@curRow, @curCol]
+    return [@curCol, @curRow]
 
-  setCurrent: (row, col) ->
+  setCurrent: (col, row) ->
     if (
-      row >= 0 and row < @grid.rows and
-      col >= 0 and col < @grid.cols
+      col >= 0 and col < @grid.cols and
+      row >= 0 and row < @grid.rows
     )
-      @curRow = row
       @curCol = col
+      @curRow = row
     else
       throw 'InvalidCurrentSquareException'
 
   next: ->
-    newRow = @curRow
     newCol = @curCol
+    newRow = @curRow
 
-    newRow += 1
-
-    if newRow >= @grid.rows
-      newRow = 0
-      newCol += 1
+    newCol += 1
 
     if newCol >= @grid.cols
       newCol = 0
+      newRow += 1
+
+    if newRow >= @grid.rows
+      newRow = 0
       
-    @setCurrent(newRow, newCol)
+    @setCurrent(newCol, newRow)
 
   right: ->
     newCol = @curCol + 1
     if newCol < @grid.cols
-      @setCurrent(@curRow, newCol)
+      @setCurrent(newCol, @curRow)
 
 module.exports = PuzzleGridUI
