@@ -1,17 +1,18 @@
 rules = (grid) ->
-  subSquareSize = Math.sqrt(grid.rows)
-
   return (
     colsAreValid(grid) and
     rowsAreValid(grid) and
-    allSubSquaresAreValid(grid, subSquareSize))
+    allSubSquaresAreValid(grid))
 
+#Check no number occurs twice in a row
 rowsAreValid = (grid) ->
   return lineIsValid(grid.rows, grid.cols, grid.getCell)
 
+#Check no number occurs twice in a column
 colsAreValid = (grid) ->
   return lineIsValid(grid.cols, grid.rows, grid.getCellT)
 
+#Check a particular straight line in the grid is valid
 lineIsValid = (outerScan, innerScan, valueGetter) ->
   for u in [0...outerScan]
     found = []
@@ -27,7 +28,11 @@ lineIsValid = (outerScan, innerScan, valueGetter) ->
 
   return true
 
-allSubSquaresAreValid = (grid, subSquareSize) ->
+#Check no number occurs twice in all subsquares,
+#by checking all subsquares individually
+allSubSquaresAreValid = (grid) ->
+  subSquareSize = Math.sqrt(grid.rows)
+
   for x in [0...subSquareSize]
     startRow = x*subSquareSize
 
@@ -39,6 +44,7 @@ allSubSquaresAreValid = (grid, subSquareSize) ->
 
   return true
 
+#Check no number occurs twice in a particular subsquare
 subSquareIsValid = (grid, startRow, startCol, squareSize) ->
   found = []
 
@@ -55,6 +61,7 @@ subSquareIsValid = (grid, startRow, startCol, squareSize) ->
 
   return true
 
+#Return sudoku rules if the grid is a valid size for sudoku
 rulesBuilder = (grid) ->
   if (
     (grid.rows == grid.cols) and

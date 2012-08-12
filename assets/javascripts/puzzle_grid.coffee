@@ -4,6 +4,8 @@ class PuzzleGrid
     if rules?
       @setRules(rules)
 
+  #Set the rules with a rules builder function 
+  #(which returns rules after initial validation)
   setRules: (rulesBuilder) ->
     @rules = rulesBuilder(@)
 
@@ -12,6 +14,7 @@ class PuzzleGrid
   getCell: (row, col) =>
     return @data[@key(row, col)]
 
+  #Get cell value using transposed coordinates
   getCellT: (col, row) =>
     return @data[@key(row, col)]
     

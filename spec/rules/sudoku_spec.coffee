@@ -7,9 +7,10 @@ describe 'sudoku rules builder', ->
     expect(=> grid.setRules(SudokuRules)).toThrow('InvalidGridException')
 
   it 'should only accept grids where the sides are a square number', ->
-    for size in [1...30]
+    squareNumbers = [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+    for size in [1..100]
       grid = new PuzzleGrid(size, size)
-      if (size != 1 and size != 4 and size != 9 and size != 16 and size != 25)
+      if (size not in squareNumbers)
         expect(=> grid.setRules(SudokuRules)).toThrow('InvalidGridException')
       else
         grid.setRules(SudokuRules)
