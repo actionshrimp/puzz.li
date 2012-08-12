@@ -56,3 +56,26 @@ describe 'puzzle grid UI', ->
     
     @ui.left()
     expect(@ui.getCurrent()).toEqual([0, 1])
+
+  it 'should go down up to the edge of the grid', ->
+    @ui.down()
+    expect(@ui.getCurrent()).toEqual([0, 1])
+
+    @ui.down()
+    expect(@ui.getCurrent()).toEqual([0, 2])
+
+    @ui.down()
+    expect(@ui.getCurrent()).toEqual([0, 2])
+
+  it 'should go up up to the edge of the grid', ->
+    @ui.setCurrent(2, 2)
+
+    @ui.up()
+    expect(@ui.getCurrent()).toEqual([2, 1])
+
+    @ui.up()
+    expect(@ui.getCurrent()).toEqual([2, 0])
+
+    @ui.up()
+    expect(@ui.getCurrent()).toEqual([2, 0])
+

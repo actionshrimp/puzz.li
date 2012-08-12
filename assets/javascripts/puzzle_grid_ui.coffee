@@ -32,13 +32,19 @@ class PuzzleGridUI
     @setCurrent(newX, newY)
 
   right: ->
-    newX = @curX + 1
-    if newX < @grid.cols
-      @setCurrent(newX, @curY)
+    try
+      @setCurrent(@curX + 1, @curY)
 
   left: ->
-    newX = @curX - 1
-    if newX >= 0
-      @setCurrent(newX, @curY)
+    try
+      @setCurrent(@curX - 1, @curY)
+
+  down: ->
+    try
+      @setCurrent(@curX, @curY + 1)
+
+  up: ->
+    try
+      @setCurrent(@curX, @curY - 1)
 
 module.exports = PuzzleGridUI
