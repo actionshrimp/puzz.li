@@ -16,3 +16,9 @@ describe 'puzzle grid UI', ->
 
   it 'should not allow the current square to be outside the underlying grid', ->
     expect(=> @ui.setCurrent(3, 3)).toThrow('InvalidCurrentSquareException')
+
+  describe 'the next function', ->
+    it 'should move to the righthand entry in a row if there is one', ->
+      expect(@ui.getCurrent()).toEqual([0, 0])
+      @ui.next()
+      expect(@ui.getCurrent()).toEqual([1, 0])
