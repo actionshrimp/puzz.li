@@ -5,6 +5,6 @@ module.exports = function(app) {
     });
 
     app.get('/sudoku', function(req, res) {
-        res.render('puzzle', {title: 'Sudoku'});
+        res.render('puzzles/sudoku', {});
     })
 };

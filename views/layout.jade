@@ -1,22 +1,23 @@
 !!!
 html
   head
-    title= title
+    title
+        block title
+        |   | puzz.li
     != css('master')
     link(
         href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700',
         rel='stylesheet',
         type='text/css'
     )
+    link(
+        href='http://fonts.googleapis.com/css?family=Quando',
+        rel='stylesheet',
+        type='text/css'
+    )
   body
     #header 
-        h1= title
+        h1
+            block title
     #content
-        #grid
-            block grid
-        #rules
-            #rules-header
-                h2 Rules
-            block rules
-        #additional
-            block additional
+        block content
