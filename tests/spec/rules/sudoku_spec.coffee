@@ -1,5 +1,5 @@
-PuzzleGrid = require('../../assets/javascripts/puzzle_grid')
-SudokuRules = require('../../assets/javascripts/rules/sudoku')
+PuzzleGrid = require('../../../assets/javascripts/puzzle_grid')
+SudokuRules = require('../../../assets/javascripts/rules/sudoku')
 
 describe 'sudoku rules builder', ->
   it 'should only accept equal sided grids', ->

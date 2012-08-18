@@ -1,4 +1,4 @@
-router = require('../routes.js')
+router = require('../../routes.js')
 
 describe 'routes', ->
 

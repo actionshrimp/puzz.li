@@ -1,5 +1,5 @@
-PuzzleGridUI = require('../assets/javascripts/puzzle_grid_ui')
-PuzzleGrid = require('../assets/javascripts/puzzle_grid')
+PuzzleGridUI = require('../../assets/javascripts/puzzle_grid_ui')
+PuzzleGrid = require('../../assets/javascripts/puzzle_grid')
 
 describe 'puzzle grid UI', ->
 

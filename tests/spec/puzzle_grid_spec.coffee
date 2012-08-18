@@ -1,5 +1,5 @@
-BaseRules = require('../assets/javascripts/rules/base')
-PuzzleGrid = require('../assets/javascripts/puzzle_grid')
+BaseRules = require('../../assets/javascripts/rules/base')
+PuzzleGrid = require('../../assets/javascripts/puzzle_grid')
 
 class ExampleRules extends BaseRules
   validateGridValues: () ->
