@@ -4,7 +4,7 @@ module.exports = function(app) {
         res.render('index', {title: 'Puzzli'});
     });
 
-    app.get('/sudoku', function(req, res) {
+    app.get('/puzzles/sudoku', function(req, res) {
         res.render('puzzles/sudoku', {});
     })
 };
