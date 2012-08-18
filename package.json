@@ -15,7 +15,8 @@
                             "jade": ">= 0.26.0"
                         },
     "devDependencies":  {
-                            "jasmine-node": ">= 1.0.26"
+                            "jasmine-node": ">= 1.0.26",
+                            "supertest": ">= 0.1.2"
                         }
 }
 

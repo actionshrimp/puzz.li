@@ -1,7 +1,7 @@
 var express = require('express');
 var assets = require('connect-assets');
 
-var app = module.exports = express.createServer();
+var app = module.exports = express();
 
 app.configure(function() {
     app.set('views', __dirname + '/views');
