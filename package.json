@@ -10,9 +10,9 @@
     "author":           "Dave Aitken <dave.aitken@gmail.com>",
     "licences":         ["MIT"],
     "dependencies":     {
-                            "express": ">= 2.5.9",
-                            "connect-assets": ">= 2.2.0",
-                            "jade": ">= 0.26.0"
+                            "express": ">= 3.0.0",
+                            "connect-assets": ">= 2.2.1",
+                            "jade": ">= 0.27.2"
                         },
     "devDependencies":  {
                             "jasmine-node": ">= 1.0.26",
