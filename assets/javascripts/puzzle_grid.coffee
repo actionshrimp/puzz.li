@@ -27,8 +27,8 @@ class PuzzleGrid
     if not performRulesValidation?
       performRulesValidation = true
 
-    key = @key(row, col)
-    prev = @getCell(row, col)
+    key = @key(col, row)
+    prev = @getCell(col, row)
 
     @data[key] = value
 

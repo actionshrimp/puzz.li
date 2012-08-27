@@ -14,11 +14,11 @@ describe 'puzzle grid', ->
     @grid = new PuzzleGrid 10, 10
 
   it 'should let you set values for cells within range', ->
-    @grid.setCell(0, 0, 'Legal')
-    @grid.setCell(1, 1, 'Also legal')
+    @grid.setCell(0, 1, 'Legal')
+    @grid.setCell(1, 0, 'Also legal')
 
-    expect(@grid.getCell(0, 0)).toEqual('Legal')
-    expect(@grid.getCell(1, 1)).toEqual('Also legal')
+    expect(@grid.getCell(0, 1)).toEqual('Legal')
+    expect(@grid.getCell(1, 0)).toEqual('Also legal')
 
   it 'should thrown an InvalidCellException if the cell is out of range', ->
     expect(=> @grid.setCell(10, 0, 'Out of range')).toThrow('InvalidCellException')
