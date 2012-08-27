@@ -1,6 +1,7 @@
 class PuzzleGrid
   constructor: (@cols, @rows, rules) ->
     @data = {}
+    @updateListeners = []
     if rules?
       @setRules(rules)
 
@@ -35,6 +36,8 @@ class PuzzleGrid
       @data[key] = prev
       throw 'InvalidGridException'
 
+    @broadcastUpdate(col, row, value)
+
   cellExists: (col, row) ->
     if (col >= 0 and col < @cols) and (row >= 0 and row < @rows)
       return true
@@ -45,5 +48,13 @@ class PuzzleGrid
       return @rules.validateGridValues()
     else
       return true
+
+  registerUpdateListener: (listener) ->
+    @updateListeners.push(listener)
+
+  broadcastUpdate: (col, row, value) ->
+    for listener in @updateListeners
+      listener(col, row, value)
+
 
 module.exports = PuzzleGrid

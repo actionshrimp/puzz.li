@@ -24,6 +24,13 @@ describe 'puzzle grid', ->
     expect(=> @grid.setCell(10, 0, 'Out of range')).toThrow('InvalidCellException')
     expect(=> @grid.setCell(0, 10, 'Out of range')).toThrow('InvalidCellException')
 
+  it 'should broadcast to registered value listeners when a cell is updated', ->
+    spy = jasmine.createSpy('updateListener')
+    @grid.registerUpdateListener(spy)
+    @grid.setCell(3, 3, 'A value')
+
+    expect(spy).toHaveBeenCalledWith(3, 3, 'A value')
+
   describe 'when rules are in place', ->
 
     beforeEach ->
