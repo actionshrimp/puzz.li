@@ -13,13 +13,16 @@ class PuzzleGridRenderer
     return "<div class='puzzle-grid'>#{rows}</div>"
 
   render: ->
-    cells = ""
-
+    rows = ""
     for y in [0...@grid.rows]
+      cells = ""
+
       for x in [0...@grid.cols]
         cells += @renderCell(x, y)
 
-    @buffer = @renderGrid(cells)
+      rows += @renderRow(cells)
+
+    @buffer = @renderGrid(rows)
     return @buffer
 
 module.exports = PuzzleGridRenderer

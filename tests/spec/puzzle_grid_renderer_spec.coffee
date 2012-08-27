@@ -17,3 +17,9 @@ describe 'puzzle grid renderer', ->
 
     allCells = $('.puzzle-grid-cell', grid)
     expect(allCells.length).toEqual(@size * @size)
+
+  it 'should have as many rows in its buffer as there are in the underlying grid', ->
+    grid = $(@renderer.buffer)
+
+    allRows = $('.puzzle-grid-row', grid)
+    expect(allRows.length).toEqual(@size)
