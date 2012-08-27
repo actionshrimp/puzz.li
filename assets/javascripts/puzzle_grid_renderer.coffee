@@ -25,6 +25,7 @@ class PuzzleGridRenderer
       gridOut += @renderRow(row)
     
     gridOut += "</div>"
+
     return gridOut
 
   render: =>
