@@ -1,14 +1,18 @@
 class PuzzleGridRenderer
-  constructor: (@grid) ->
+  constructor: (@grid, @ui) ->
     @renderListeners = []
     @grid.onUpdate(@render)
+    @ui.onCurrentUpdate(@render)
     @render()
 
   renderCellValue: (col, row) =>
     return "<div class='puzzle-grid-cell-value'>#{@grid.getCell(col, row)}</div>"
 
   renderCell: (col, row) =>
-    return "<div class='puzzle-grid-cell'>#{@renderCellValue(col, row)}</div>"
+    classes = 'puzzle-grid-cell'
+    if ((@ui.getCurrent()[0] == col) and (@ui.getCurrent()[1] == row))
+      classes += ' puzzle-grid-selected-cell'
+    return "<div class='#{classes}'>#{@renderCellValue(col, row)}</div>"
 
   renderRow: (row) =>
     rowOut = "<div class='puzzle-grid-row'>"

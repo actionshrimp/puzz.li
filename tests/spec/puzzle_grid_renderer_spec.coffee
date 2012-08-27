@@ -2,6 +2,7 @@ window = require('jsdom').jsdom().createWindow()
 $ = require('jquery')
 
 PuzzleGrid = require('../../assets/javascripts/puzzle_grid')
+PuzzleGridUI = require('../../assets/javascripts/puzzle_grid_ui')
 PuzzleGridRenderer = require('../../assets/javascripts/puzzle_grid_renderer')
 
 describe 'puzzle grid renderer', ->
@@ -9,7 +10,8 @@ describe 'puzzle grid renderer', ->
   beforeEach ->
     @size = 3
     @grid = new PuzzleGrid(@size, @size)
-    @renderer = new PuzzleGridRenderer(@grid)
+    @ui = new PuzzleGridUI(@grid)
+    @renderer = new PuzzleGridRenderer(@grid, @ui)
 
     @renderedGrid = $(@renderer.buffer)
 
@@ -40,3 +42,10 @@ describe 'puzzle grid renderer', ->
     @renderer.render()
 
     expect(spy).toHaveBeenCalledWith(@renderer.buffer)
+
+  it 'should highlight the currently selected square in the UI class', ->
+    @ui.setCurrent(2, 2)
+    $row = $('.puzzle-grid-row', @renderedGrid).eq(2)
+    $cell = $('.puzzle-grid-cell', $row).eq(2)
+
+    expect($cell.hasClass('puzzle-grid-selected-cell')).toBeTruthy()
