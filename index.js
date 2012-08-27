@@ -12,6 +12,7 @@ app.configure(function() {
     app.use(app.router);
     app.use(assets());
     app.use(express.static(__dirname + '/public'));
+    app.use(require('browserify')(__dirname + '/assets/javascripts/bundle.js'));
 });
 
 app.configure('development', function(){
