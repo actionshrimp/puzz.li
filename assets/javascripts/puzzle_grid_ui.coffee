@@ -2,6 +2,7 @@ class PuzzleGridUI
   constructor: (@grid) ->
     @curY = 0
     @curX = 0
+    @currentUpdateListeners = []
 
   getCurrent: ->
     return [@curX, @curY]
@@ -13,6 +14,8 @@ class PuzzleGridUI
     )
       @curX = x
       @curY = y
+
+      @broadcastCurrentUpdate(@curX, @curY)
     else
       throw 'InvalidCurrentSquareException'
 
@@ -46,5 +49,12 @@ class PuzzleGridUI
   up: ->
     try
       @setCurrent(@curX, @curY - 1)
+
+  onCurrentUpdate: (listener) =>
+    @currentUpdateListeners.push(listener)
+
+  broadcastCurrentUpdate: (x, y) =>
+    for listener in @currentUpdateListeners
+      listener(x, y)
 
 module.exports = PuzzleGridUI

@@ -79,3 +79,10 @@ describe 'puzzle grid UI', ->
     @ui.up()
     expect(@ui.getCurrent()).toEqual([2, 0])
 
+  it 'should notify subscribers when the selected square changes', ->
+    spy = jasmine.createSpy('currentUpdateListener')
+    @ui.onCurrentUpdate(spy)
+    @ui.setCurrent(2, 1)
+    
+    expect(spy).toHaveBeenCalledWith(2, 1)
+
