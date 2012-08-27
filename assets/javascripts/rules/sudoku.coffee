@@ -19,11 +19,11 @@ class SudokuRules extends BaseRules
 
   #Check no number occurs twice in a column
   colsAreValid: () ->
-    return @lineIsValid(@grid.cols, @grid.rows, @grid.getCellT)
+    return @lineIsValid(@grid.cols, @grid.rows, @grid.getCell)
 
   #Check no number occurs twice in a row
   rowsAreValid: () ->
-    return @lineIsValid(@grid.rows, @grid.cols, @grid.getCell)
+    return @lineIsValid(@grid.rows, @grid.cols, @grid.getCellT)
 
   #Check a particular straight line in the grid is valid
   lineIsValid: (outerScan, innerScan, valueGetter) ->
