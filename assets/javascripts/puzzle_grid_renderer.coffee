@@ -1,32 +1,34 @@
 class PuzzleGridRenderer
   constructor: (@grid) ->
-    @buffer = ""
+    @renderListeners = []
     @grid.registerUpdateListener(@render)
     @render()
 
-  renderCellValue: (col, row) ->
+  renderCellValue: (col, row) =>
     return "<div class='puzzle-grid-cell-value'>#{@grid.getCell(col, row)}</div>"
 
-  renderCell: (col, row) ->
+  renderCell: (col, row) =>
     return "<div class='puzzle-grid-cell'>#{@renderCellValue(col, row)}</div>"
 
-  renderRow: (cells) ->
-    return "<div class='puzzle-grid-row'>#{cells}</div>"
+  renderRow: (row) =>
+    rowOut = "<div class='puzzle-grid-row'>"
+    for col in [0...@grid.cols]
+      rowOut += @renderCell(col, row)
 
-  renderGrid: (rows) ->
-    return "<div class='puzzle-grid'>#{rows}</div>"
+    rowOut += "</div>"
+
+    return rowOut
+
+  renderGrid: () ->
+    gridOut = "<div class='puzzle-grid'>"
+    for row in [0...@grid.rows]
+      gridOut += @renderRow(row)
+    
+    gridOut += "</div>"
+    return gridOut
 
   render: =>
-    rows = ""
-    for y in [0...@grid.rows]
-      cells = ""
-
-      for x in [0...@grid.cols]
-        cells += @renderCell(x, y)
-
-      rows += @renderRow(cells)
-
-    @buffer = @renderGrid(rows)
+    @buffer = @renderGrid()
     return @buffer
 
 module.exports = PuzzleGridRenderer
