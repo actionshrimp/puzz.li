@@ -1,7 +1,7 @@
 class PuzzleGridRenderer
   constructor: (@grid) ->
     @renderListeners = []
-    @grid.registerUpdateListener(@render)
+    @grid.onUpdate(@render)
     @render()
 
   renderCellValue: (col, row) =>

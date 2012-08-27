@@ -26,7 +26,7 @@ describe 'puzzle grid', ->
 
   it 'should broadcast to registered value listeners when a cell is updated', ->
     spy = jasmine.createSpy('updateListener')
-    @grid.registerUpdateListener(spy)
+    @grid.onUpdate(spy)
     @grid.setCell(3, 3, 'A value')
 
     expect(spy).toHaveBeenCalledWith(3, 3, 'A value')

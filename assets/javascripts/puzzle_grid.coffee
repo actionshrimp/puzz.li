@@ -49,7 +49,7 @@ class PuzzleGrid
     else
       return true
 
-  registerUpdateListener: (listener) ->
+  onUpdate: (listener) ->
     @updateListeners.push(listener)
 
   broadcastUpdate: (col, row, value) ->
