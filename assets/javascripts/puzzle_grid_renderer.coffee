@@ -29,6 +29,14 @@ class PuzzleGridRenderer
 
   render: =>
     @buffer = @renderGrid()
+    @broadcastRender(@buffer)
     return @buffer
+
+  onRender: (listener) =>
+    @renderListeners.push(listener)
+
+  broadcastRender: (buffer) =>
+    for listener in @renderListeners
+      listener(buffer)
 
 module.exports = PuzzleGridRenderer
