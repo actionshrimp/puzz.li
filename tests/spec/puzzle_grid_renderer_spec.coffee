@@ -23,3 +23,7 @@ describe 'puzzle grid renderer', ->
 
     allRows = $('.puzzle-grid-row', grid)
     expect(allRows.length).toEqual(@size)
+
+  it 'should give the actual grid the right class', ->
+    grid = $(@renderer.buffer)
+    expect(grid.hasClass('puzzle-grid')).toBeTruthy()
