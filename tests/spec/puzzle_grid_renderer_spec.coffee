@@ -27,3 +27,13 @@ describe 'puzzle grid renderer', ->
   it 'should give the actual grid the right class', ->
     grid = $(@renderer.buffer)
     expect(grid.hasClass('puzzle-grid')).toBeTruthy()
+
+  it 'should render values inside cells', ->
+    value = 5
+
+    @grid.setCell(0, 0, value)
+    grid = $(@renderer.buffer)
+
+    firstCell = $('.puzzle-grid-cell', grid).first()
+
+    expect($('.puzzle-grid-cell-value', firstCell).html()).toEqual("" + value)
