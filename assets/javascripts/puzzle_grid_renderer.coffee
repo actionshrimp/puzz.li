@@ -14,7 +14,7 @@ class PuzzleGridRenderer
   renderCell: (col, row) =>
     classes = 'puzzle-grid-cell'
     if ((@ui.getCurrent()[0] == col) and (@ui.getCurrent()[1] == row))
-      classes += ' puzzle-grid-selected-cell'
+      classes += ' puzzle-grid-selected'
     return "<div class='#{classes}'>#{@renderCellValue(col, row)}</div>"
 
   renderRow: (row) =>

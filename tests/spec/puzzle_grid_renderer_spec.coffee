@@ -60,4 +60,4 @@ describe 'puzzle grid renderer', ->
     $row = $('.puzzle-grid-row', @renderedGrid).eq(1)
     $cell = $('.puzzle-grid-cell', $row).eq(2)
 
-    expect($cell.hasClass('puzzle-grid-selected-cell')).toBeTruthy()
+    expect($cell.hasClass('puzzle-grid-selected')).toBeTruthy()
