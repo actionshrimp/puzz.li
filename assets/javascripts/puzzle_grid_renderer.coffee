@@ -19,7 +19,7 @@ class PuzzleGridRenderer
 
     return rowOut
 
-  renderGrid: () ->
+  renderGrid: () =>
     gridOut = "<div class='puzzle-grid'>"
     for row in [0...@grid.rows]
       gridOut += @renderRow(row)
