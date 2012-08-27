@@ -36,6 +36,13 @@ describe 'puzzle grid renderer', ->
 
     expect($('.puzzle-grid-cell-value', firstCell).html()).toEqual("" + value)
 
+    value2 = 3
+    @grid.setCell(2, 1, value2)
+    $row = $('.puzzle-grid-row', @renderedGrid).eq(1)
+    $cell = $('.puzzle-grid-cell', $row).eq(2)
+
+    expect($('.puzzle-grid-cell-value', $cell).html()).toEqual("" + value2)
+
   it 'should notify subscribers about a render event', ->
     spy = jasmine.createSpy('renderListener')
     @renderer.onRender(spy)
@@ -44,8 +51,8 @@ describe 'puzzle grid renderer', ->
     expect(spy).toHaveBeenCalledWith(@renderer.buffer)
 
   it 'should highlight the currently selected square in the UI class', ->
-    @ui.setCurrent(2, 2)
-    $row = $('.puzzle-grid-row', @renderedGrid).eq(2)
+    @ui.setCurrent(2, 1)
+    $row = $('.puzzle-grid-row', @renderedGrid).eq(1)
     $cell = $('.puzzle-grid-cell', $row).eq(2)
 
     expect($cell.hasClass('puzzle-grid-selected-cell')).toBeTruthy()
