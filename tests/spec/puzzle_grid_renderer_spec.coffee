@@ -43,6 +43,11 @@ describe 'puzzle grid renderer', ->
 
     expect($('.puzzle-grid-cell-value', $cell).html()).toEqual("" + value2)
 
+    $row = $('.puzzle-grid-row', @renderedGrid).eq(2)
+    $cell = $('.puzzle-grid-cell', $row).eq(1)
+
+    expect($('.puzzle-grid-cell-null', $cell).length).toEqual(1)
+
   it 'should notify subscribers about a render event', ->
     spy = jasmine.createSpy('renderListener')
     @renderer.onRender(spy)

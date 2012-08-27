@@ -6,7 +6,10 @@ class PuzzleGridRenderer
     @render()
 
   renderCellValue: (col, row) =>
-    return "<div class='puzzle-grid-cell-value'>#{@grid.getCell(col, row)}</div>"
+    if @grid.getCell(col, row)?
+      return "<div class='puzzle-grid-cell-value'>#{@grid.getCell(col, row)}</div>"
+    else
+      return "<div class='puzzle-grid-cell-null'/>"
 
   renderCell: (col, row) =>
     classes = 'puzzle-grid-cell'
