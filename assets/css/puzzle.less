@@ -1,0 +1,68 @@
+@fill: #eeeef3;
+@highlight: #e34f33;
+
+.shaded-back-box {
+    box-shadow: 0px 1px 5px #666;
+    background-color: @fill;
+    border-radius: .5em;
+}
+
+.shaded-fore-box {
+    box-shadow: 0px 1px 3px #666;
+    background-color: white;
+}
+
+#rules {
+    .shaded-back-box;
+    float: left;
+    white-space: pre;
+
+    p {
+        margin: 2em 1em 2em .5em;
+    }
+}
+
+#rules-header {
+    .shaded-fore-box;
+    margin: 1em 0;
+    padding: .2em 1em;
+
+    h2 {
+        font-family: 'Quando', serif;
+        color: @highlight;
+        margin: 0;
+    }
+}
+
+#puzzle {
+    float: left;
+    margin-left: 1em;
+}
+
+.puzzle-grid {
+    .shaded-back-box;
+    float: left;
+
+    @grid-spacing: .3em;
+    padding: @grid-spacing;
+
+    .puzzle-grid-row {
+        overflow: hidden;
+
+        .puzzle-grid-cell {
+            .shaded-fore-box;
+            float: left;
+
+            margin: @grid-spacing;
+            width: 3em;
+            height: 3em;
+
+            border: 2px @fill solid;
+            border-radius: .2em;
+        }
+    }
+
+    .puzzle-grid-cell.puzzle-grid-selected {
+        border: 2px @highlight solid;
+    }
+}

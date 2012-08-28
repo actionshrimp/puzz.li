@@ -1,14 +1,17 @@
 extends layout
 
 block content
-    #puzzle
-        block puzzle
     #rules
         #rules-header
             h2 Rules
         block rules
+    #puzzle
+        block puzzle
     #additional
         block additional
 
 block append scripts
     script(src='/bundle.js')
+
+block append stylesheets
+    != css('puzzle')
