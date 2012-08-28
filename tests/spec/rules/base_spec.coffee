@@ -1,5 +1,5 @@
-PuzzleGrid = require('../../../assets/javascripts/puzzle_grid')
-BaseRules = require('../../../assets/javascripts/rules/base')
+PuzzleGrid = require('../../../assets/js/puzzle_grid')
+BaseRules = require('../../../assets/js/rules/base')
 
 describe 'rules base class', ->
   beforeEach ->

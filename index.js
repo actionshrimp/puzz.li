@@ -13,7 +13,7 @@ app.configure(function() {
     app.use(assets());
     app.use(express.static(__dirname + '/public'));
     app.use(require('browserify')(
-            __dirname + '/assets/javascripts/bundle.js', {
+            __dirname + '/assets/js/bundle.js', {
                 mount: '/bundle.js',
                 exports: ['require']
             }));

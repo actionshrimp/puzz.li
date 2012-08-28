@@ -1,9 +1,9 @@
 window = require('jsdom').jsdom().createWindow()
 $ = require('jquery')
 
-PuzzleGrid = require('../../assets/javascripts/puzzle_grid')
-PuzzleGridUI = require('../../assets/javascripts/puzzle_grid_ui')
-PuzzleGridRenderer = require('../../assets/javascripts/puzzle_grid_renderer')
+PuzzleGrid = require('../../assets/js/puzzle_grid')
+PuzzleGridUI = require('../../assets/js/puzzle_grid_ui')
+PuzzleGridRenderer = require('../../assets/js/puzzle_grid_renderer')
 
 describe 'puzzle grid renderer', ->
 

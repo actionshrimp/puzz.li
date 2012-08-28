@@ -10,22 +10,5 @@ block rules
         | column, or sub-square more than once.
 
 block append scripts
-    script(type='text/javascript')
+    != js('puzzles/sudoku')
 
-        var PuzzleGrid = require('/bundle.js').PuzzleGrid;
-        var PuzzleGridUI = require('/bundle.js').PuzzleGridUI;
-        var PuzzleGridRenderer = require('/bundle.js').PuzzleGridRenderer;
-        var SudokuRules = require('/bundle.js').SudokuRules;
-
-        var grid;
-
-        $(document).ready(function() {
-            grid = new PuzzleGrid(9, 9, SudokuRules);
-            var ui = new PuzzleGridUI(grid);
-            var renderer = new PuzzleGridRenderer(grid, ui);
-            renderer.onRender(function(html) {
-                $('#puzzle').html(html);
-            });
-
-            renderer.render();
-        });
