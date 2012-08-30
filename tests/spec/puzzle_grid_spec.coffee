@@ -2,16 +2,14 @@ BaseRules = require('../../assets/js/rules/base')
 PuzzleGrid = require('../../assets/js/puzzle_grid')
 
 class ExampleRules extends BaseRules
-  validateGridValues: () ->
-    if @grid.getCell(0, 0) == 'Legal'
-      return true
-    else
-      return false
+  validateGridState: (grid) ->
+    if grid.getCell(0, 0) == 'Illegal'
+      throw 'InvalidGridException'
 
 describe 'puzzle grid', ->
 
   beforeEach ->
-    @grid = new PuzzleGrid 10, 10
+    @grid = new PuzzleGrid(10, 10)
 
   it 'should let you set values for cells within range', ->
     @grid.setCell(0, 1, 'Legal')
@@ -34,7 +32,8 @@ describe 'puzzle grid', ->
   describe 'when rules are in place', ->
 
     beforeEach ->
-      @grid.setRules(ExampleRules)
+      rules = new ExampleRules()
+      @grid.setRules(rules)
 
     it 'should take the value if the rules allow it', ->
       @grid.setCell(0, 0, 'Legal')
@@ -42,6 +41,3 @@ describe 'puzzle grid', ->
 
     it 'should throw an InvalidGridException if the rules do not allow it', ->
       expect(=> @grid.setCell(0, 0, 'Illegal')).toThrow('InvalidGridException')
-
-    it 'should allow invalid rule values if performRulesValidation is set to false', ->
-      expect(=> @grid.setCell(0, 0, 'Illegal', false)).not.toThrow()

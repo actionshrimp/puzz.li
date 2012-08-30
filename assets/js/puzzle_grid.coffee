@@ -1,14 +1,11 @@
 class PuzzleGrid
-  constructor: (@cols, @rows, rules) ->
+  constructor: (@cols, @rows) ->
     @data = {}
     @updateListeners = []
-    if rules?
-      @setRules(rules)
 
-  #Instantiate the rules with a rules constructor
-  #(which returns a rules object after initial validation)
-  setRules: (rules) ->
-    @rules = new rules(@)
+  setRules: (rules) =>
+    rules.initialValidate(@)
+    @rules = rules
 
   key: (col, row) -> "#{col}:#{row}"
 
@@ -19,22 +16,21 @@ class PuzzleGrid
   getCellT: (row, col) =>
     return @data[@key(col, row)]
     
-  setCell: (col, row, value, performRulesValidation) ->
+  setCell: (col, row, value) ->
 
     if !@cellExists(col, row)
       throw 'InvalidCellException'
-
-    if not performRulesValidation?
-      performRulesValidation = true
 
     key = @key(col, row)
     prev = @getCell(col, row)
 
     @data[key] = value
 
-    if (performRulesValidation and !@gridIsValid())
+    try
+      @validateGrid()
+    catch e
       @data[key] = prev
-      throw 'InvalidGridException'
+      throw e
 
     @broadcastUpdate(col, row, value)
 
@@ -43,11 +39,9 @@ class PuzzleGrid
       return true
     return false
 
-  gridIsValid: () ->
+  validateGrid: () =>
     if @rules?
-      return @rules.validateGridValues()
-    else
-      return true
+      @rules.validateGridState(@)
 
   onUpdate: (listener) ->
     @updateListeners.push(listener)

@@ -1,59 +1,66 @@
 PuzzleGrid = require('../../../assets/js/puzzle_grid')
 SudokuRules = require('../../../assets/js/rules/sudoku')
 
-describe 'sudoku rules builder', ->
+describe 'sudoku rules', ->
+
   it 'should only accept equal sided grids', ->
     grid = new PuzzleGrid(9, 4)
-    expect(=> grid.setRules(SudokuRules)).toThrow('InvalidGridException')
+    rules = new SudokuRules(/.*/)
+    expect(-> grid.setRules(rules)).toThrow('InvalidGridException')
 
   it 'should only accept grids where the sides are a square number', ->
     squareNumbers = [1, 4, 9]
     for size in [1..10]
       grid = new PuzzleGrid(size, size)
+      rules = new SudokuRules(/.*/)
       if (size not in squareNumbers)
-        expect(=> grid.setRules(SudokuRules)).toThrow('InvalidGridException')
+        expect(-> grid.setRules(rules)).toThrow('InvalidGridException')
       else
-        grid.setRules(SudokuRules)
+        grid.setRules(rules)
 
-describe 'sudoku rules', ->
+  describe 'when the grid is a valid shape', ->
+    beforeEach ->
+      @allowedValues = /[1-9]/
+      @grid = new PuzzleGrid(9, 9)
+      @rules = new SudokuRules(@allowedValues)
+      @grid.setRules(@rules)
 
-  beforeEach ->
-    @grid = new PuzzleGrid(9, 9)
-    @grid.setRules(SudokuRules)
+    it 'should only allow predefined values', ->
+      #Check the values regex actually works as expected first
+      expect(@allowedValues.test('0')).toBeFalsy()
+      expect(@allowedValues.test('1')).toBeTruthy()
+      expect(@allowedValues.test('9')).toBeTruthy()
+      expect(@allowedValues.test('A')).toBeFalsy()
 
-  it 'should only allow one of each number in each column', ->
-    expect(=> @grid.setCell(0, 0, 1)).not.toThrow()
+      expect(=> @grid.setCell(0, 0, 0)).toThrow('InvalidValueException')
+      expect(=> @grid.setCell(0, 0, 'A')).toThrow('InvalidValueException')
+      expect(=> @grid.setCell(0, 0, 1)).not.toThrow('InvalidValueException')
+      expect(=> @grid.setCell(0, 0, 9)).not.toThrow('InvalidValueException')
+      expect(=> @grid.setCell(0, 0, '9')).not.toThrow('InvalidValueException')
 
-    #Check column validator specifically fails 'manually'
-    @grid.setCell(0, 1, 1, false)
-    expect(@grid.rules.colsAreValid()).toBeFalsy()
-    @grid.setCell(0, 1, null)
+      #Check the same values are 
 
-    #Check it fails as part of the setCell call
-    expect(=> @grid.setCell(0, 1, 1)).toThrow('InvalidGridException')
+    it 'should only allow one of each number in each column', ->
+      expect(=> @grid.setCell(0, 0, 1)).not.toThrow()
+      #Check it fails as part of the setCell call
+      expect(=> @grid.setCell(0, 1, 1)).toThrow('InvalidColumnException')
 
-    #Same again for a separate column
-    expect(=> @grid.setCell(8, 8, 2)).not.toThrow()
-    expect(=> @grid.setCell(8, 7, 2)).toThrow('InvalidGridException')
+      #Same again for a separate column
+      expect(=> @grid.setCell(8, 8, 2)).not.toThrow()
+      expect(=> @grid.setCell(8, 7, 2)).toThrow('InvalidColumnException')
 
-  it 'should only allow one of each number in each row', ->
-    expect(=> @grid.setCell(0, 0, 1)).not.toThrow()
+    it 'should only allow one of each number in each row', ->
+      expect(=> @grid.setCell(0, 0, 1)).not.toThrow()
+      #Check it fails as part of the setCell call
+      expect(=> @grid.setCell(1, 0, 1)).toThrow('InvalidRowException')
 
-    #Check row validator specifically fails 'manually'
-    @grid.setCell(1, 0, 1, false)
-    expect(@grid.rules.rowsAreValid()).toBeFalsy()
-    @grid.setCell(1, 0, null)
+      #Same again for a separate row
+      expect(=> @grid.setCell(3, 5, 2)).not.toThrow()
+      expect(=> @grid.setCell(4, 5, 2)).toThrow('InvalidRowException')
 
-    #Check it fails as part of the setCell call
-    expect(=> @grid.setCell(1, 0, 1)).toThrow('InvalidGridException')
+    it 'should only allow one of each number in each sub-square', ->
+      @grid.setCell(0, 0, 1)
+      expect(=> @grid.setCell(1, 1, 1)).toThrow('InvalidSubSquareException')
 
-    #Same again for a separate row
-    @grid.setCell(3, 5, 2)
-    expect(=> @grid.setCell(4, 5, 2)).toThrow('InvalidGridException')
-
-  it 'should only allow one of each number in each sub-square', ->
-    @grid.setCell(0, 0, 1)
-    expect(=> @grid.setCell(1, 1, 1)).toThrow('InvalidGridException')
-
-    @grid.setCell(3, 3, 9)
-    expect(=> @grid.setCell(5, 4, 9)).toThrow('InvalidGridException')
+      @grid.setCell(3, 3, 9)
+      expect(=> @grid.setCell(5, 4, 9)).toThrow('InvalidSubSquareException')
