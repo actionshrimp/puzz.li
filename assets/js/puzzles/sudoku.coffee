@@ -3,7 +3,8 @@ PuzzleGridUI = require('/bundle.js').PuzzleGridUI
 PuzzleGridRenderer = require('/bundle.js').PuzzleGridRenderer
 SudokuRules = require('/bundle.js').SudokuRules
 
-grid = new PuzzleGrid(9, 9, SudokuRules)
+rules = new SudokuRules(/[1-9]/)
+grid = new PuzzleGrid(9, 9, rules)
 ui = new PuzzleGridUI(grid)
 renderer = new PuzzleGridRenderer(grid, ui)
 
@@ -35,15 +36,12 @@ $('#key-catcher').keydown((e) ->
   x = coords[0]
   y = coords[1]
 
-  if /[1-9]/.test(value)
-    grid.setCell(x, y, value)
-    ui.next()
-
-  if /[ ]/.test(value)
+  if value == ' '
     grid.setCell(x, y, null)
-    ui.next()
+  else
+    grid.setCell(x, y, value)
 
-  return
+  ui.next()
 )
 
 $(document).ready(->

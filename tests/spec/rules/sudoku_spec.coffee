@@ -4,26 +4,23 @@ SudokuRules = require('../../../assets/js/rules/sudoku')
 describe 'sudoku rules', ->
 
   it 'should only accept equal sided grids', ->
-    grid = new PuzzleGrid(9, 4)
     rules = new SudokuRules(/.*/)
-    expect(-> grid.setRules(rules)).toThrow('InvalidGridException')
+    expect(-> new PuzzleGrid(9, 4, rules)).toThrow('InvalidGridException')
 
   it 'should only accept grids where the sides are a square number', ->
     squareNumbers = [1, 4, 9]
     for size in [1..10]
-      grid = new PuzzleGrid(size, size)
       rules = new SudokuRules(/.*/)
       if (size not in squareNumbers)
-        expect(-> grid.setRules(rules)).toThrow('InvalidGridException')
+        expect(-> new PuzzleGrid(size, size, rules)).toThrow('InvalidGridException')
       else
-        grid.setRules(rules)
+        new PuzzleGrid(size, size, rules)
 
   describe 'when the grid is a valid shape', ->
     beforeEach ->
       @allowedValues = /[1-9]/
-      @grid = new PuzzleGrid(9, 9)
       @rules = new SudokuRules(@allowedValues)
-      @grid.setRules(@rules)
+      @grid = new PuzzleGrid(9, 9, @rules)
 
     it 'should only allow predefined values', ->
       #Check the values regex actually works as expected first

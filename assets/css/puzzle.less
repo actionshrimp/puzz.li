@@ -37,11 +37,16 @@
 #puzzle {
     float: left;
     margin-left: 1em;
+
+}
+
+#key-catcher {
+    position: absolute;
+    left: -1000em;
 }
 
 .puzzle-grid {
     .shaded-back-box;
-    float: left;
 
     @grid-spacing: .3em;
     padding: @grid-spacing;
@@ -65,4 +70,13 @@
     .puzzle-grid-cell.puzzle-grid-selected {
         border: 2px @highlight solid;
     }
+}
+
+.puzzle-grid-focused {
+    border: 1px @highlight solid;
+
+    //Compensate for border shift when focused
+    position: relative;
+    left: -1px;
+    top: -1px;
 }

@@ -9,8 +9,8 @@ block rules
         | No number can appear in the same row, 
         | column, or sub-square more than once.
 
-block append scripts
-    != js('puzzles/sudoku')
-
 block append stylesheets
     != css('puzzles/sudoku')
+
+block append puzzle-engine
+    != js('puzzles/sudoku')

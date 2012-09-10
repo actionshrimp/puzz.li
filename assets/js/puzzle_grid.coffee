@@ -1,7 +1,9 @@
 class PuzzleGrid
-  constructor: (@cols, @rows) ->
+  constructor: (@cols, @rows, rules) ->
     @data = {}
     @updateListeners = []
+    if rules?
+      @setRules(rules)
 
   setRules: (rules) =>
     rules.initialValidate(@)
