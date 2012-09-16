@@ -19,12 +19,8 @@ describe 'puzzle grid renderer', ->
       @renderedGrid = $(buffer))
 
   it 'should have as many cells in its buffer as there are in the underlying grid', ->
-    allCells = $('.puzzle-grid-cell', @renderedGrid)
-    expect(allCells.length).toEqual(@size * @size)
-
-  it 'should have as many rows in its buffer as there are in the underlying grid', ->
-    allRows = $('.puzzle-grid-row', @renderedGrid)
-    expect(allRows.length).toEqual(@size)
+    $allCells = $('.puzzle-grid-cell', @renderedGrid)
+    expect($allCells.length).toEqual(@size * @size)
 
   it 'should give the actual grid the right class', ->
     expect(@renderedGrid.hasClass('puzzle-grid')).toBeTruthy()
@@ -36,15 +32,17 @@ describe 'puzzle grid renderer', ->
 
     expect($('.puzzle-grid-cell-value', firstCell).html()).toEqual("" + value)
 
-    value2 = 3
-    @grid.setCell(2, 1, value2)
-    $row = $('.puzzle-grid-row', @renderedGrid).eq(1)
-    $cell = $('.puzzle-grid-cell', $row).eq(2)
+    value2 = 3; row = 1; col = 2
+    @grid.setCell(col, row, value2)
+    pos = @size * row + col
+    $cell = $('.puzzle-grid-cell', @renderedGrid).eq(pos)
 
     expect($('.puzzle-grid-cell-value', $cell).html()).toEqual("" + value2)
 
-    $row = $('.puzzle-grid-row', @renderedGrid).eq(2)
-    $cell = $('.puzzle-grid-cell', $row).eq(1)
+  it 'should render the null cell for a cell with no value', ->
+    row = 2; col = 1
+    pos = @size * row + col
+    $cell = $('.puzzle-grid-cell', @renderedGrid).eq(pos)
 
     expect($('.puzzle-grid-cell-null', $cell).length).toEqual(1)
 
