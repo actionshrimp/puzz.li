@@ -1,0 +1,18 @@
+$cell-size = 3em
+$cell-gap = 1em
+$cell-count = 9
+
+.puzzle-grid
+    height: $cell-count * ($cell-size + $cell-gap) + $cell-gap + .2
+    width: $cell-count * ($cell-size + $cell-gap) + $cell-gap + .2
+
+.puzzle-grid-cell
+    width: $cell-size
+    height: $cell-size
+
+for num in 0..9
+    .puzzle-grid-col-{num}
+        left: $cell-gap + num * ($cell-size + $cell-gap);
+
+    .puzzle-grid-row-{num}
+        top: $cell-gap + num * ($cell-size + $cell-gap);
