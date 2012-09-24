@@ -48,16 +48,25 @@ shaded-fore-box()
     position: relative
     overflow: auto
     padding: 0
+    z-index: 0
 
     .puzzle-grid-cell
         shaded-fore-box()
-        position: absolute;
+        position: absolute
+        z-index: 10
 
         border: 2px $fill solid
         border-radius: .2em
 
     .puzzle-grid-cell.puzzle-grid-selected
         border: 2px $highlight solid
+
+    .puzzle-subgrid
+        position: absolute
+        z-index: 5
+
+        border: 1px #bbb solid
+        border-radius: .5em
 
 .puzzle-grid-focused
     border: 1px $highlight solid

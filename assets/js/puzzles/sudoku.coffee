@@ -9,9 +9,11 @@ ui = new PuzzleGridUI(grid)
 renderer = new PuzzleGridRenderer(grid, ui)
 
 renderer.onRender((html) ->
-  $grid = $('<div/>').html(html)
-  $('.puzzle-grid-cell', $grid).wrap("<div class='puzzle-grid-cell-border'/>")
-  $('#puzzle').html($grid)
+  $('#puzzle').html(html)
+  for x in [0...3]
+    for y in [0...3]
+      classes = "puzzle-subgrid puzzle-subgrid-row-#{y} puzzle-subgrid-col-#{x}"
+      $('.puzzle-grid').append($("<div class='#{classes}'/>"))
 )
 
 $(document).keydown((e) ->

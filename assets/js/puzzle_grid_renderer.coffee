@@ -12,21 +12,20 @@ class PuzzleGridRenderer
       return "<div class='puzzle-grid-cell-null'/>"
 
   renderCell: (col, row) =>
-    classes = 'puzzle-grid-cell'
+    classes = "puzzle-grid-cell puzzle-grid-col-#{col} puzzle-grid-row-#{row}"
     if ((@ui.getCurrent()[0] == col) and (@ui.getCurrent()[1] == row))
       classes += ' puzzle-grid-selected'
     return "<div class='#{classes}'>#{@renderCellValue(col, row)}</div>"
 
   renderRow: (row) =>
-    rowOut = "<div class='puzzle-grid-row'>"
+    rowOut = ""
+
     for col in [0...@grid.cols]
       rowOut += @renderCell(col, row)
 
-    rowOut += "</div>"
-
     return rowOut
 
-  renderGrid: () =>
+  renderCells: () =>
     gridOut = "<div class='puzzle-grid'>"
     for row in [0...@grid.rows]
       gridOut += @renderRow(row)
@@ -34,6 +33,9 @@ class PuzzleGridRenderer
     gridOut += "</div>"
 
     return gridOut
+
+  renderGrid: () =>
+    return @renderCells()
 
   render: =>
     @buffer = @renderGrid()

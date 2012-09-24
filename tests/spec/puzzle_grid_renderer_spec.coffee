@@ -5,6 +5,9 @@ PuzzleGrid = require('../../assets/js/puzzle_grid')
 PuzzleGridUI = require('../../assets/js/puzzle_grid_ui')
 PuzzleGridRenderer = require('../../assets/js/puzzle_grid_renderer')
 
+selectRenderedCell = (grid, col, row) ->
+  $(".puzzle-grid-cell.puzzle-grid-row-#{row}.puzzle-grid-col-#{col}", grid)
+
 describe 'puzzle grid renderer', ->
 
   beforeEach ->
@@ -25,6 +28,30 @@ describe 'puzzle grid renderer', ->
   it 'should give the actual grid the right class', ->
     expect(@renderedGrid.hasClass('puzzle-grid')).toBeTruthy()
 
+  it 'should create the correct number of columns', ->
+    colClasses = []
+
+    $allCells = $('.puzzle-grid-cell', @renderedGrid)
+
+    for cell in $allCells
+      classes = $(cell).attr('class').split(' ')
+      for c in classes
+        if (/^puzzle-grid-col-/.test(c)) and (c not in colClasses)
+          colClasses.push(c)
+
+  it 'should create the correct number of rows', ->
+    rowClasses = []
+
+    $allCells = $('.puzzle-grid-cell', @renderedGrid)
+
+    for cell in $allCells
+      classes = $(cell).attr('class').split(' ')
+      for c in classes
+        if (/^puzzle-grid-row-/.test(c)) and (c not in rowClasses)
+          rowClasses.push(c)
+
+    expect(rowClasses.length).toEqual(@size)
+
   it 'should render values inside cells', ->
     value = 5
     @grid.setCell(0, 0, value)
@@ -34,15 +61,13 @@ describe 'puzzle grid renderer', ->
 
     value2 = 3; row = 1; col = 2
     @grid.setCell(col, row, value2)
-    pos = @size * row + col
-    $cell = $('.puzzle-grid-cell', @renderedGrid).eq(pos)
+    $cell = selectRenderedCell(@renderedGrid, col, row)
 
     expect($('.puzzle-grid-cell-value', $cell).html()).toEqual("" + value2)
 
   it 'should render the null cell for a cell with no value', ->
     row = 2; col = 1
-    pos = @size * row + col
-    $cell = $('.puzzle-grid-cell', @renderedGrid).eq(pos)
+    $cell = selectRenderedCell(@renderedGrid, col, row)
 
     expect($('.puzzle-grid-cell-null', $cell).length).toEqual(1)
 
@@ -54,8 +79,8 @@ describe 'puzzle grid renderer', ->
     expect(spy).toHaveBeenCalledWith(@renderer.buffer)
 
   it 'should highlight the currently selected square in the UI class', ->
-    @ui.setCurrent(2, 1)
-    $row = $('.puzzle-grid-row', @renderedGrid).eq(1)
-    $cell = $('.puzzle-grid-cell', $row).eq(2)
+    col = 2; row = 1
+    @ui.setCurrent(col, row)
+    $cell = selectRenderedCell(@renderedGrid, col, row)
 
     expect($cell.hasClass('puzzle-grid-selected')).toBeTruthy()

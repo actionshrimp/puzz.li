@@ -1,18 +1,33 @@
 $cell-size = 3em
 $cell-gap = 1em
 $cell-count = 9
+$subgrid-count = 3
+$cells-per-subgrid = ($cell-count / $subgrid-count)
+$subgrid-gap = .5em
 
 .puzzle-grid
-    height: $cell-count * ($cell-size + $cell-gap) + $cell-gap + .2
-    width: $cell-count * ($cell-size + $cell-gap) + $cell-gap + .2
+    height: $cell-count * ($cell-size + $cell-gap) + $cell-gap + ($subgrid-count - 1) * $subgrid-gap + .2
+    width: $cell-count * ($cell-size + $cell-gap) + $cell-gap + ($subgrid-count - 1) * $subgrid-gap + .2
 
 .puzzle-grid-cell
     width: $cell-size
     height: $cell-size
 
+.puzzle-subgrid
+    width: $cells-per-subgrid * ($cell-size + $cell-gap)
+    height: $cells-per-subgrid * ($cell-size + $cell-gap)
+
 for num in 0..9
     .puzzle-grid-col-{num}
-        left: $cell-gap + num * ($cell-size + $cell-gap);
+        left: $cell-gap + num * ($cell-size + $cell-gap) + floor(num / $cells-per-subgrid) * $subgrid-gap
 
     .puzzle-grid-row-{num}
-        top: $cell-gap + num * ($cell-size + $cell-gap);
+        top: $cell-gap + num * ($cell-size + $cell-gap) + floor(num / $cells-per-subgrid) * $subgrid-gap
+
+for num in 0..3
+    .puzzle-subgrid-col-{num}
+        left: ($cell-gap / 2) + num * ($cells-per-subgrid * ($cell-size + $cell-gap) + $subgrid-gap)
+
+    .puzzle-subgrid-row-{num}
+        top: ($cell-gap / 2) + num * ($cells-per-subgrid * ($cell-size + $cell-gap) + $subgrid-gap)
+
